@@ -22,7 +22,7 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         
-        <div class="row gx-4 gx-lg-5 align-items-center">
+        <div class="row gx-4 gx-lg-5 align-items-start">
             <div class="col-md-6">
                 <img class="card-img-top mb-5 mb-md-0 border border-dark" loading="lazy" id="display-img" src="<?php echo validate_image($img) ?>" alt="..." />
                 <div class="mt-2 row gx-2 gx-lg-3 row-cols-4 row-cols-md-3 row-cols-xl-4 justify-content-start">
@@ -42,14 +42,34 @@
                 <h1 class="display-5 fw-bolder border-bottom border-primary pb-1"><?php echo $name ?></h1>
                 <p class="m-0"><small>Thương hiệu: <?php echo $bname ?></small></p>
                 <div class="fs-5 mb-5">
-                &#8369; <span id="price"><?php echo number_format($inv[0]['price']) ?></span>
+                <span id="price">
+                    <?php 
+                    if (isset($inv[0]['price'])) {
+                        echo number_format($inv[0]['price']) . ' &#8363;';
+                    } else {
+                        echo "N/A &#8363;"; // Hiển thị giá trị mặc định nếu không có giá
+                    }
+                    ?>
+                </span>
                 <br>
-                <span><small><b>Số lượng có sẵn:</b> <span id="avail"><?php echo $inv[0]['quantity'] ?></span></small></span>
+                <span>
+                    <small><b>Số lượng có sẵn:</b> 
+                    <span id="avail">
+                        <?php 
+                        if (isset($inv[0]['quantity'])) {
+                            echo $inv[0]['quantity'];
+                        } else {
+                            echo "N/A"; // Hiển thị giá trị mặc định nếu không có số lượng
+                        }
+                        ?>
+                    </span>
+                    </small>
+                </span>
                 </div>
                 <form action="" id="add-cart">
                 <div class="d-flex">
-                    <input type="hidden" name="price" value="<?php echo $inv[0]['price'] ?>">
-                    <input type="hidden" name="inventory_id" value="<?php echo $inv[0]['id'] ?>">
+                    <input type="hidden" name="price" value="<?php echo isset($inv[0]['price']) ? $inv[0]['price'] : 0; ?>">
+                    <input type="hidden" name="inventory_id" value="<?php echo isset($inv[0]['id']) ? $inv[0]['id'] : 0; ?>">
                     <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" name="quantity" />
                     <button class="btn btn-outline-dark flex-shrink-0" type="submit">
                         <i class="bi-cart-fill me-1"></i>

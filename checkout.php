@@ -43,7 +43,7 @@ $total = 0;
                         <h4 class="text-muted">Phương Thức Thanh Toán</h4>
                             <div class="d-flex w-100 justify-content-between">
                                 <button class="btn btn-flat btn-dark">Thanh Toán Khi Nhận Hàng</button>
-                                <span id="paypal-button"></span>
+                                <!-- <span id="paypal-button"></span> -->
                             </div>
                         </div>
                     </div>
@@ -53,47 +53,7 @@ $total = 0;
     </div>
 </section>
 <script>
-paypal.Button.render({
-    env: 'sandbox', // change for production if app is live,
- 
-        //app's client id's
-	client: {
-        sandbox:    'AdDNu0ZwC3bqzdjiiQlmQ4BRJsOarwyMVD_L4YQPrQm4ASuBg4bV5ZoH-uveg8K_l9JLCmipuiKt4fxn',
-        //production: 'AaBHKJFEej4V6yaArjzSx9cuf-UYesQYKqynQVCdBlKuZKawDDzFyuQdidPOBSGEhWaNQnnvfzuFB9SM'
-    },
- 
-    commit: true, // Show a 'Pay Now' button
- 
-    style: {
-    	color: 'blue',
-    	size: 'small'
-    },
- 
-    payment: function(data, actions) {
-        return actions.payment.create({
-            payment: {
-                transactions: [
-                    {
-                    	//total purchase
-                        amount: { 
-                        	total: '<?php echo $total; ?>', 
-                        	currency: 'PHP' 
-                        }
-                    }
-                ]
-            }
-        });
-    },
- 
-    onAuthorize: function(data, actions) {
-        return actions.payment.execute().then(function(payment) {
-    		// //sweetalert for successful transaction
-    		// swal('Thank you!', 'Paypal purchase successful.', 'success');
-            payment_online()
-        });
-    },
- 
-}, '#paypal-button');
+
 
 function payment_online(){
     $('[name="payment_method"]').val("Online Payment")
